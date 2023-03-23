@@ -4697,7 +4697,8 @@ GRPCServer::Create(
     const KeepAliveOptions& keepalive_options,
     std::unique_ptr<GRPCServer>* grpc_server)
 {
-  const std::string addr = address + ":" + std::to_string(port);
+  //const std::string addr = address + ":" + std::to_string(port);
+  const std::string addr = "unix:///tmp/tmp.socket";
   grpc_server->reset(new GRPCServer(
       server, trace_manager, shm_manager, addr, reuse_port, use_ssl,
       ssl_options, infer_allocation_pool_size, compression_level,
@@ -4781,11 +4782,11 @@ GRPCServer::Start()
   model_stream_infer_cq_ = grpc_builder_.AddCompletionQueue();
   grpc_server_ = grpc_builder_.BuildAndStart();
   // Check if binding port failed
-  if (bound_port == 0) {
-    return TRITONSERVER_ErrorNew(
-        TRITONSERVER_ERROR_UNAVAILABLE,
-        (std::string("Socket '") + server_addr_ + "' already in use ").c_str());
-  }
+  // if (bound_port == 0) {
+  //   return TRITONSERVER_ErrorNew(
+  //       TRITONSERVER_ERROR_UNAVAILABLE,
+  //       (std::string("Socket '") + server_addr_ + "' already in use ").c_str());
+  // }
 
   // A common Handler for other non-inference requests
   CommonHandler* hcommon = new CommonHandler(
