@@ -15,4 +15,4 @@ async def root():
 async def moderation(text: str, passcode: str, origin: bool = False):
     if passcode != PASSCODE:
         return {"message": "Passcode is incorrect"}
-    return {"data": check_moderation(text) if origin else get_res(check_moderation(text))}
+    return {"text": text, "result": check_moderation(text) if origin else get_res(check_moderation(text))}
