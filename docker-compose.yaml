@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  moderation-checker:
+    image: kiritoxkiriko/openai-moderation-checker:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - API_KEY=sk-xxxxx
+      - TZ=Asia/Shanghai
+      - PASS_CODE=123456
